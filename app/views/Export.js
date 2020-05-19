@@ -143,7 +143,7 @@ export const ExportScreen = ({ navigation }) => {
               <Button
                 style={styles.exportButton}
                 label={t('share.button_text')}
-                icon={Icons.ExportIcon}
+                icon={Icons.Export}
                 onPress={onShare}
               />
             </View>

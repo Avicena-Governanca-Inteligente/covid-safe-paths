@@ -90,7 +90,7 @@ export const LicensesScreen = ({ navigation }) => {
             {t('label.privacy_policy')}
           </Typography>
           <View style={styles.arrowContainer}>
-            <Image source={Images.foreArrow} />
+            <Image source={Images.ForeArrow} />
           </View>
         </TouchableOpacity>
       </Theme>

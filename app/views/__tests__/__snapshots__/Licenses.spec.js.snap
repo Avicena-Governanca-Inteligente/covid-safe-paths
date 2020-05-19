@@ -191,7 +191,13 @@ exports[`renders correctly 1`] = `
           }
         }
       >
-        <Image />
+        <Image
+          source={
+            Object {
+              "testUri": "../../../app/assets/images/foreArrow.png",
+            }
+          }
+        />
       </View>
     </View>
   </RCTSafeAreaView>

@@ -18,7 +18,7 @@ import Team from './team';
 import Warning from './warning';
 import XmarkIcon from './xmarkIcon';
 
-const Icons = {
+export const Icons = {
   BackArrow,
   Checkmark,
   Close,
@@ -39,5 +39,3 @@ const Icons = {
   Warning,
   XmarkIcon,
 };
-
-export default Icons;

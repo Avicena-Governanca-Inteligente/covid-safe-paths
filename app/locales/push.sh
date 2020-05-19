@@ -28,7 +28,7 @@ fi
 
 echo "Uploading English base files"
 lokalise2 file upload \
-  --file=gps/app/locales/en.json,ios/en.lproj/InfoPlist.strings,ios/en.lproj/Localizable.strings,android/app/src/main/res/values/strings.xml \
+  --file=app/locales/en.json,ios/en.lproj/InfoPlist.strings,ios/en.lproj/Localizable.strings,android/app/src/main/res/values/strings.xml \
   --lang-iso=en \
   --cleanup-mode \
   --replace-modified \
@@ -40,7 +40,7 @@ lokalise2 file upload \
 
 echo "Uploading Documents (e.g. EULA)"
 lokalise2 file upload \
-  --file=gps/app/locales/eula/en.html \
+  --file=app/locales/eula/en.html \
   --lang-iso=en \
   --cleanup-mode \
   --replace-modified \

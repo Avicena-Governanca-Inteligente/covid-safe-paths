@@ -58,9 +58,9 @@ lokalise2 file download \
   --placeholder-format=i18n \
   --export-sort=a_z \
   --replace-breaks=false \
-  --bundle-structure "app/locales/%LANG_ISO%.json" \
+  --bundle-structure "locales/%LANG_ISO%.json" \
   --original-filenames=false \
-  --unzip-to=gps \
+  --unzip-to=app \
   --indentation=2sp \
   --json-unescaped-slashes \
   --config .lokalise.yml --token=$LOKALISE_TOKEN

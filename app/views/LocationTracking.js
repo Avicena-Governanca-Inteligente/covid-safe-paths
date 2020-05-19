@@ -273,7 +273,7 @@ class LocationTracking extends Component {
     if (this.state.currentState === StateEnum.AT_RISK) {
       return Images.BackgroundImageAtRisk;
     }
-    return Images.BackgroundImage;
+    return Images.LaunchScreenBackground;
   }
 
   settings() {

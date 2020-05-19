@@ -18,7 +18,7 @@ import UserGreen from './user-green.png';
 import Welcome1 from './welcome1.png';
 import WWW from './www.png';
 
-const Images = {
+export const Images = {
   BackArrow,
   BackgroundAtRisk,
   BoxCheckedIcon,
@@ -39,5 +39,3 @@ const Images = {
   Welcome1,
   WWW,
 };
-
-export default Images;
