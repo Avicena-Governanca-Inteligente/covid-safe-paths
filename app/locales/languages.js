@@ -32,7 +32,7 @@ import zh_Hant from './zh_Hant.json';
 
 // Adding/updating a language:
 // 1. Add the language in Lokalise
-// 2. run: yarn i18n:pull with your lokalise token, see gps/app/locales/pull.sh instructions
+// 2. run: yarn i18n:pull with your lokalise token, see app/locales/pull.sh instructions
 // 3. import xy from `./xy.json` and add the language to the language block
 
 /** Fetch the user language override, if any */
