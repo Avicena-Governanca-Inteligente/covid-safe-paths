@@ -34,16 +34,7 @@ platform :android do
 
   desc "Build a Release APK and AAB"
   lane :release do
-
-    increment_version_code(
-      gradle_file_path: "../android/app/build.gradle",
-    )
-
-    increment_version_name(
-      gradle_file_path: "../android/app/build.gradle",
-      version_name: JS_PACKAGE['version']
-    )
-
+  
     gradle(
       task: "bundle",
       build_type: "gpsRelease",
@@ -82,15 +73,6 @@ platform :android do
   desc "Build a Release APK and AAB"
   lane :release_bte do
 
-    increment_version_code(
-      gradle_file_path: "../android/app/build.gradle",
-    )
-
-    increment_version_name(
-      gradle_file_path: "../android/app/build.gradle",
-      version_name: JS_PACKAGE['version']
-    )
-
     gradle(
       task: "bundle",
       build_type: "bteRelease",
@@ -106,6 +88,7 @@ platform :android do
 
   desc "Upload to google play store beta track"
   lane :play_store_bte do
+
     validate_play_store_json_key(
       json_key: "app/json_key.json",
     )
