@@ -13,14 +13,12 @@ import {
   View,
 } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import RNFS from 'react-native-fs';
+// import RNFS from 'react-native-fs';
 import LinearGradient from 'react-native-linear-gradient';
-// import Share from 'react-native-share';
-import RNFetchBlob from 'rn-fetch-blob';
 
 // import close from '../../../shared/assets/svgs/close';
 import exportIcon from '../../../shared/assets/svgs/export';
-import { isPlatformiOS } from './../Util';
+// import { isPlatformiOS } from './../Util';
 import { Button } from '../components/Button';
 // import { IconButton } from '../components/IconButton';
 import { Typography } from '../components/Typography';
@@ -28,8 +26,10 @@ import Colors from '../constants/colors';
 import fontFamily from '../constants/fonts';
 import { Theme } from '../constants/themes';
 import { GetStoreData } from '../helpers/General';
+// import Share from 'react-native-share';
+// import RNFetchBlob from 'rn-fetch-blob';
 
-const base64 = RNFetchBlob.base64;
+// const base64 = RNFetchBlob.base64;
 
 export const ExportScreen = ({ navigation }) => {
   const [showConfirmationAlert, setShowingConfirmationText] = useState(false);
@@ -47,9 +47,6 @@ export const ExportScreen = ({ navigation }) => {
   });
 
   async function showAlert() {
-    const DEVICE_ID = await GetStoreData('DEVICE_ID');
-    console.log('[DEVICE_ID]', DEVICE_ID);
-
     setShowingConfirmationText(true);
   }
 
@@ -57,73 +54,78 @@ export const ExportScreen = ({ navigation }) => {
     setShowingConfirmationText(false);
   }
 
-  // function backToMain() {
-  //   navigation.goBack();
+  // async function onShare() {
+  //   try {
+  //     let locationData = await NativeModules.SecureStorageManager.getLocations();
+  //     let jsonData = JSON.stringify(locationData);
+
+  //     const DEVICE_ID = await GetStoreData('DEVICE_ID');
+  //     console.log('[DEVICE_ID]', DEVICE_ID);
+
+  //     console.log('[LOCATIONS]', locationData)
+
+  // let locationData = await NativeModules.SecureStorageManager.getLocations();
+  // let nowUTC = new Date().toISOString();
+  // let unixtimeUTC = Date.parse(nowUTC);
+
+  // let options = {};
+  // let jsonData = JSON.stringify(locationData);
+  // console.log(jsonData)
+  // const title = 'COVIDSafePaths.json';
+  // const filename = unixtimeUTC + '.json';
+  // const message = 'Here is my location log from COVID Safe Paths.';
+  // if (isPlatformiOS()) {
+  //   const url = RNFS.DocumentDirectoryPath + '/' + filename;
+  //   await RNFS.writeFile(url, jsonData, 'utf8')
+  //     .then(() => {
+  //       options = {
+  //         activityItemSources: [
+  //           {
+  //             placeholderItem: { type: 'url', content: url },
+  //             item: {
+  //               default: { type: 'url', content: url },
+  //             },
+  //             subject: {
+  //               default: title,
+  //             },
+  //             linkMetadata: { originalUrl: url, url, title },
+  //           },
+  //         ],
+  //       };
+  //     })
+  //     .catch(err => {
+  //       console.log(err.message);
+  //     });
+  // } else {
+  //   jsonData = 'data:application/json;base64,' + base64.encode(jsonData);
+  //   options = {
+  //     title,
+  //     subject: title,
+  //     url: jsonData,
+  //     message: message,
+  //     filename: filename,
+  //   };
   // }
+  // showAlert();
 
-  async function onShare() {
-    try {
-      let locationData = await NativeModules.SecureStorageManager.getLocations();
-      let nowUTC = new Date().toISOString();
-      let unixtimeUTC = Date.parse(nowUTC);
+  // - Esse trecho abaixo abria uma janela para compartilhar o json por wpp, email, etc...
+  // await Share.open(options)
+  //   .then(res => {
+  //     console.log(res);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //     console.log(err.message, err.code);
+  //   });
 
-      let options = {};
-      let jsonData = JSON.stringify(locationData);
-      const title = 'COVIDSafePaths.json';
-      const filename = unixtimeUTC + '.json';
-      const message = 'Here is my location log from COVID Safe Paths.';
-      if (isPlatformiOS()) {
-        const url = RNFS.DocumentDirectoryPath + '/' + filename;
-        await RNFS.writeFile(url, jsonData, 'utf8')
-          .then(() => {
-            options = {
-              activityItemSources: [
-                {
-                  placeholderItem: { type: 'url', content: url },
-                  item: {
-                    default: { type: 'url', content: url },
-                  },
-                  subject: {
-                    default: title,
-                  },
-                  linkMetadata: { originalUrl: url, url, title },
-                },
-              ],
-            };
-          })
-          .catch(err => {
-            console.log(err.message);
-          });
-      } else {
-        jsonData = 'data:application/json;base64,' + base64.encode(jsonData);
-        options = {
-          title,
-          subject: title,
-          url: jsonData,
-          message: message,
-          filename: filename,
-        };
-      }
-      showAlert();
-
-      // - Esse trecho abaixo abria uma janela para compartilhar o json por wpp, email, etc...
-      // await Share.open(options)
-      //   .then(res => {
-      //     console.log(res);
-      //   })
-      //   .catch(err => {
-      //     console.log(err);
-      //     console.log(err.message, err.code);
-      //   });
-
-      if (isPlatformiOS()) {
-        // eslint-disable-next-line no-undef
-        await RNFS.unlink(url);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+  // if (isPlatformiOS()) {
+  //   // eslint-disable-next-line no-undef
+  //   await RNFS.unlink(url);
+  // }
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }
 
   return (
     <Theme use='violet'>
@@ -155,7 +157,7 @@ export const ExportScreen = ({ navigation }) => {
                 style={styles.exportButton}
                 label={t('share.button_text')}
                 icon={exportIcon}
-                onPress={onShare}
+                onPress={showAlert}
               />
 
               <AwesomeAlert
@@ -172,6 +174,17 @@ export const ExportScreen = ({ navigation }) => {
     </Theme>
   );
 };
+
+async function sendLocations() {
+  let locationData = await NativeModules.SecureStorageManager.getLocations();
+  // let jsonData = JSON.stringify(locationData);
+
+  const DEVICE_ID = await GetStoreData('DEVICE_ID');
+  console.log('[DEVICE_ID]', DEVICE_ID);
+
+  console.log('[LOCATIONS]', locationData);
+}
+
 function AlertView() {
   const { t } = useTranslation();
 
@@ -181,17 +194,10 @@ function AlertView() {
 
       <Text style={styles.alertItems}>{t('share.alertFirstItem')}</Text>
 
-      {/* <Button
-        title="Enviar"
-        color={Colors.VIOLET_BUTTON}
-        style={styles.sendButton}
-        // onPress={sendLocalizations}
-      /> */}
-
       <TouchableHighlight
         style={styles.sendButton}
-        // onPress={sendLocalizations}
-        underlayColor='#fff'>
+        underlayColor='#fff'
+        onPress={sendLocations}>
         <Text style={styles.sendButtonText}>Enviar</Text>
       </TouchableHighlight>
     </View>
