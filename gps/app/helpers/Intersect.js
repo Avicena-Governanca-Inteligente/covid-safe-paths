@@ -14,11 +14,9 @@ import {
   CONCERN_TIME_WINDOW_MINUTES,
   DEFAULT_EXPOSURE_PERIOD_MINUTES,
   MAX_EXPOSURE_WINDOW_DAYS,
-  MIN_CHECK_INTERSECT_INTERVAL,
 } from '../constants/history';
 import {
   AUTHORITY_NEWS,
-  AUTHORITY_SOURCE_SETTINGS,
   CROSSED_PATHS,
   LAST_CHECKED,
   LOCATION_DATA,
@@ -300,14 +298,34 @@ export async function checkIntersect() {
  *
  * Returns the array of day bins (mostly for debugging purposes)
  */
+function getSickPeopleLocations() {
+  // GET PARA A API AQUI E ETC..
+
+  let locations = [
+    {
+      latitude: -3.826329,
+      longitude: -38.4566897,
+      time: 1590406697603,
+    },
+  ];
+  return locations;
+}
+
 async function asyncCheckIntersect() {
   // first things first ... is it time to actually try the intersection?
+
   let lastCheckedMs = Number(await GetStoreData(LAST_CHECKED));
+
   if (
-    lastCheckedMs + MIN_CHECK_INTERSECT_INTERVAL * 60 * 1000 >
+    // lastCheckedMs + MIN_CHECK_INTERSECT_INTERVAL * 60 * 1000 > ->  muito tempo, sempre vai pular..
+    lastCheckedMs + 2 >
     dayjs().valueOf()
-  )
+  ) {
+    console.log('[Intersect Interval]');
     return null;
+  }
+
+  console.log('[tryng Intersect]');
 
   // Set up the empty set of dayBins for intersections, and the array for the news urls
   let dayBins = getEmptyLocationBins();
@@ -315,47 +333,67 @@ async function asyncCheckIntersect() {
 
   // get the saved set of locations for the user, already sorted
   let locationArray = await NativeModules.SecureStorageManager.getLocations();
+  console.log('[INTERSECT - USER LOCATIONS]', locationArray);
 
   // get the health authorities
-  let authority_list = await GetStoreData(AUTHORITY_SOURCE_SETTINGS);
+  // let authority_list = await GetStoreData(AUTHORITY_SOURCE_SETTINGS);
 
-  if (authority_list) {
-    // Parse the registered health authorities
-    authority_list = JSON.parse(authority_list);
+  let fakeLocations = getSickPeopleLocations();
 
-    for (const authority of authority_list) {
-      try {
-        let responseJson = await retrieveUrlAsJson(authority.url);
+  console.log('[INTERSECT - FAKE LOCATIONS]', fakeLocations);
 
-        // Update the news array with the info from the authority
-        name_news.push({
-          name: responseJson.authority_name,
-          news_url: responseJson.info_website,
-        });
+  let tempDayBin = intersectSetIntoBins(
+    locationArray,
+    normalizeAndSortLocations(fakeLocations),
+    // normalizeAndSortLocations(responseJson.concern_points), Authority location points...
+  );
 
-        // intersect the users location with the locations from the authority
-        let tempDayBin = intersectSetIntoBins(
-          locationArray,
-          normalizeAndSortLocations(responseJson.concern_points),
-        );
+  // Update each day's bin with the result from the intersection.  To keep the
+  //  difference between no data (==-1) and exposure data (>=0), there
+  //  are a total of 3 cases to consider.
+  dayBins = dayBins.map((currentValue, i) => {
+    if (currentValue < 0) return tempDayBin[i];
+    if (tempDayBin[i] < 0) return currentValue;
+    return currentValue + tempDayBin[i];
+  });
+  // if (authority_list) {
+  // Parse the registered health authorities
+  // authority_list = JSON.parse(authority_list);
+  // for (const authority of authority_list) {
+  //   try {
+  //     let responseJson = await retrieveUrlAsJson(authority.url);
 
-        // Update each day's bin with the result from the intersection.  To keep the
-        //  difference between no data (==-1) and exposure data (>=0), there
-        //  are a total of 3 cases to consider.
-        dayBins = dayBins.map((currentValue, i) => {
-          if (currentValue < 0) return tempDayBin[i];
-          if (tempDayBin[i] < 0) return currentValue;
-          return currentValue + tempDayBin[i];
-        });
-      } catch (error) {
-        // TODO: We silently fail.  Could be a JSON parsing issue, could be a network issue, etc.
-        //       Should do better than this.
-        console.log('[authority] fetch/parse error :', error);
-      }
-    }
-  }
+  //     // Update the news array with the info from the authority
+  //     name_news.push({
+  //       name: responseJson.authority_name,
+  //       news_url: responseJson.info_website,
+  //     });
 
-  // Store the news arary for the authorities found.
+  //     // intersect the users location with the locations from the authority
+  //     let tempDayBin = intersectSetIntoBins(
+  //       locationArray,
+  //       normalizeAndSortLocations(fakeLocations)
+  //       // normalizeAndSortLocations(responseJson.concern_points), Authority location points...
+  //     );
+
+  //     console.log('[TempDay]', tempDayBin)
+  //     // Update each day's bin with the result from the intersection.  To keep the
+  //     //  difference between no data (==-1) and exposure data (>=0), there
+  //     //  are a total of 3 cases to consider.
+  //     dayBins = dayBins.map((currentValue, i) => {
+  //       if (currentValue < 0) return tempDayBin[i];
+  //       if (tempDayBin[i] < 0) return currentValue;
+  //       return currentValue + tempDayBin[i];
+  //     });
+  //   } catch (error) {
+  //     // TODO: We silently fail.  Could be a JSON parsing issue, could be a network issue, etc.
+  //     //       Should do better than this.
+  //     console.log('[authority] fetch/parse error :', error);
+  //   }
+  // }
+  // }
+
+  // Store the news array for the authorities found.
   SetStoreData(AUTHORITY_NEWS, name_news);
 
   // if any of the bins are > 0, tell the user
@@ -392,11 +430,11 @@ function notifyUserOfRisk() {
  *
  * @param {*} url
  */
-async function retrieveUrlAsJson(url) {
-  let response = await fetch(url);
-  let responseJson = await response.json();
-  return responseJson;
-}
+// async function retrieveUrlAsJson(url) {
+//   let response = await fetch(url);
+//   let responseJson = await response.json();
+//   return responseJson;
+// }
 
 /** Set the app into debug mode */
 export function enableDebugMode() {

@@ -16,6 +16,7 @@ export default class BackgroundTaskServices {
     BackgroundFetch.configure(
       {
         minimumFetchInterval: INTERSECT_INTERVAL,
+        // minimumFetchInterval: 15,
         // Android options
         forceAlarmManager: false, // <-- Set true to bypass JobScheduler.
         stopOnTerminate: false,
