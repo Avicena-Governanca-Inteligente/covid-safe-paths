@@ -1,0 +1,16 @@
+name: Gissa jobs
+
+on: push
+
+jobs:
+   gissa-main:
+       runs-on: ubuntu-latest
+       steps:
+          - name: publish-commits-to-slack
+            uses: docker://technosophos/slack-notify
+            env:
+              SLACK_WEBHOOK: ${{secrets.SLACK_WEBHOOK}}
+              SLACK_MESSAGE: "${{github.author}} fez o seguinte commit no repo ${{github.repository}}: ${{github.event.head_commit.message}}"
+
+
+
