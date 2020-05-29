@@ -40,6 +40,11 @@ export const OffPage = ({ tracingStrategy }) => {
           backgroundColor='transparent'
           translucent
         />
+        {/* <SvgXml
+            xml={Icons.ShareData}
+            width={80}
+            height={size ? size : 80}
+          /> */}
         <View style={styles.pulseContainer}>
           <SvgXml
             xml={Icons.StateUnknown}
@@ -57,9 +62,7 @@ export const OffPage = ({ tracingStrategy }) => {
             <Text style={styles.mainTextBelow}>
               {t('label.home_setting_off_header')}
             </Text>
-            <Typography style={styles.subheaderText}>
-              {ctaText}
-            </Typography>
+            <Typography style={styles.subheaderText}>{ctaText}</Typography>
             <Button
               label={buttonLabel}
               onPress={() => navigation.navigate('SettingsScreen', {})}

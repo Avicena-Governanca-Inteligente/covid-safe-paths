@@ -6,6 +6,10 @@ import fontFamily from '../../constants/fonts';
 const PULSE_GAP = 80;
 
 export const styles = StyleSheet.create({
+  navRow: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
   backgroundImage: {
     width: '100%',
     height: '100%',
@@ -37,6 +41,13 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     paddingTop: PULSE_GAP,
+  },
+  shareDataContainer: {
+    position: 'absolute',
+    top: 0,
+    marginTop: '12%',
+    marginRight: '7%',
+    alignSelf: 'flex-start',
   },
   settingsContainer: {
     position: 'absolute',

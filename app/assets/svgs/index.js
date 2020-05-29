@@ -11,6 +11,7 @@ import PermissionDenied from './permissionDenied';
 import PermissionGranted from './permissionGranted';
 import PermissionUnknown from './permissionUnknown';
 import SettingsIcon from './settingsIcon';
+import ShareData from './shareData';
 import StateAtRisk from './stateAtRisk';
 import StateNoContact from './stateNoContact';
 import StateUnknown from './stateUnknown';
@@ -38,4 +39,5 @@ export const Icons = {
   Team,
   Warning,
   XmarkIcon,
+  ShareData,
 };

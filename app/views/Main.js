@@ -36,6 +36,15 @@ export const Main = () => {
     return (
       <Theme use='violet'>
         <IconButton
+          style={styles.shareDataContainer}
+          icon={Icons.ShareData}
+          size={40}
+          onPress={() => {
+            navigation.navigate('ExportScreen');
+          }}
+          label='default'
+        />
+        <IconButton
           style={styles.settingsContainer}
           icon={Icons.SettingsIcon}
           size={30}
