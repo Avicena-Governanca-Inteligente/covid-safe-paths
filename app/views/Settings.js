@@ -89,7 +89,7 @@ export const SettingsScreen = ({ navigation }) => {
     } else if (!isLogging && !isGPS) {
       return t('label.logging_inactive_bluetooth');
     }
-  }
+  };
 
   return (
     <NavigationBarWrapper
@@ -130,21 +130,21 @@ export const SettingsScreen = ({ navigation }) => {
             onPress={() => navigation.navigate('NewsScreen')}
             last={!isGPS}
           />
-          {isGPS ? (
-            <>
-              <Item
-                label={t('label.event_history_title')}
-                description={t('label.event_history_subtitle')}
-                onPress={() => navigation.navigate('ExposureHistoryScreen')}
-              />
-              <Item
-                label={t('share.title')}
-                description={t('share.subtitle')}
-                onPress={() => navigation.navigate('ExportScreen')}
-                last
-              />
-            </>
-          ) : null}
+          {/* {isGPS ? ( */}
+          <>
+            <Item
+              label={t('label.event_history_title')}
+              description={t('label.event_history_subtitle')}
+              onPress={() => navigation.navigate('ExposureHistoryScreen')}
+            />
+            <Item
+              label={t('share.title')}
+              description={t('share.subtitle')}
+              onPress={() => navigation.navigate('ExportScreen')}
+              last
+            />
+          </>
+          {/* ) : null} */}
         </Section>
 
         {isGPS && (

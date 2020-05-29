@@ -63,7 +63,7 @@ const getJustifyContent = ({ hasIcon }) =>
 
 const Container = styled.TouchableOpacity`
   background-color: ${themePrimary};
-  height: ${({ small }) => (small ? '48px' : '72px')};
+  height: ${({ small }) => (small ? '48px' : '76px')};
   border: 2px solid ${getBorderColor};
   padding-horizontal: ${({ small }) => (small ? '14px' : '16px')};
   border-radius: 8px;
@@ -76,13 +76,14 @@ const Container = styled.TouchableOpacity`
 
 const getFontSize = ({ small }) => (small ? '14px' : '20px');
 
-const getLineHeight = ({ small }) => (small ? '21px' : '40px');
+const getLineHeight = ({ small }) => (small ? '21px' : '25px');
 
 const Label = styled(Typography)`
   font-family: IBMPlexSans-Medium;
   font-size: ${getFontSize};
   line-height: ${getLineHeight};
   font-weight: normal;
+  text-align: center;
 `;
 
 const Icon = styled(SvgXml)`

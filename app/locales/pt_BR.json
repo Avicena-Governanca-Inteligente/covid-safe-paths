@@ -143,7 +143,7 @@
     "logging_inactive_location": "Localização Inativa",
     "news_subtitle": "Leia as últimas atualizações sobre COVID de sua autoridade de saúde e em geral.",
     "news_title": "Últimas notícias",
-    "no_data": "Sem dados",
+    "no_data": "Sem dados", 
     "privacy_policy": "Política de Privacidade",
     "push_at_risk_message": "Você cruzou com um paciente COVID-19",
     "push_at_risk_title": "Você pode estar em risco",
@@ -164,7 +164,9 @@
     "paragraph_first": "Se você testar positivo para COVID-19, por favor, faça sua parte compartilhando seu histórico de localização com as autoridades locais.",
     "paragraph_second": "A localização é compartilhada como uma lista simples de horários e lugares, sem informações adicionais.",
     "subtitle": "Seus dados privados podem ser transferidos para autoridades de saúde, salvos em backup, ou compartilhados.",
-    "title": "Compartilhar histórico de localização"
+    "title": "Compartilhar histórico de localização",
+    "alertTitle" : "Por favor, só envie o seu histórico de localização se \n",
+    "alertFirstItem": "- Você tiver testado positivo para COVID-19"
   },
   "version_update": {
     "alert_label": "COVID Safe Paths está desatualizado",
